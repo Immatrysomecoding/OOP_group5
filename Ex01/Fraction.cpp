@@ -1,6 +1,5 @@
 #include "Fraction.hpp"
 
-// ─── Helper: greatest common divisor ────────────────────────────────────────
 static int gcd(int a, int b) {
     if (a < 0) a = -a;
     if (b < 0) b = -b;
@@ -8,7 +7,6 @@ static int gcd(int a, int b) {
     return a;
 }
 
-// ─── Input / Output ──────────────────────────────────────────────────────────
 void Fraction::input(istream& inDev) {
     int n, d;
     inDev >> n >> d;
@@ -19,27 +17,24 @@ void Fraction::output(ostream& outDev) const {
     outDev << numerator << "/" << denominator;
 }
 
-// ─── Get / Set ───────────────────────────────────────────────────────────────
 void Fraction::get(int& n, int& d) const {
     n = numerator;
     d = denominator;
 }
 
 void Fraction::set(int n, int d) {
-    if (d == 0) return;         // guard: reject zero denominator
-    if (d < 0) { n = -n; d = -d; }  // keep sign in numerator
+    if (d == 0) return;       
+    if (d < 0) { n = -n; d = -d; }
     numerator   = n;
     denominator = d;
 }
 
-// ─── Inversion ───────────────────────────────────────────────────────────────
 Fraction Fraction::invert() const {
     Fraction result;
     result.set(denominator, numerator);
     return result;
 }
 
-// ─── Reduction ───────────────────────────────────────────────────────────────
 Fraction Fraction::reduce() const {
     Fraction result;
     int g = gcd(numerator, denominator);
@@ -48,7 +43,7 @@ Fraction Fraction::reduce() const {
     return result;
 }
 
-// ─── Arithmetic ──────────────────────────────────────────────────────────────
+
 Fraction Fraction::add(const Fraction& other) const {
     Fraction result;
     result.numerator   = numerator * other.denominator
@@ -73,11 +68,9 @@ Fraction Fraction::multiply(const Fraction& other) const {
 }
 
 Fraction Fraction::divide(const Fraction& other) const {
-    // Divide by other == multiply by inverted other
     return multiply(other.invert());
 }
 
-// ─── Stream operators ────────────────────────────────────────────────────────
 istream& operator>>(istream& inDev, Fraction& f) {
     f.input(inDev);
     return inDev;
