@@ -9,8 +9,15 @@ static int gcd(int a, int b) {
 
 void Fraction::input(istream& inDev) {
     int n, d;
-    inDev >> n >> d;
-    set(n, d);
+    while (true) {
+        inDev >> n >> d;
+        if (d == 0) {
+            cout << "  Error: denominator cannot be 0. Try again: ";
+            continue;
+        }
+        break;
+    }
+    set(n, d);   // set() normalises the sign
 }
 
 void Fraction::output(ostream& outDev) const {
@@ -23,13 +30,20 @@ void Fraction::get(int& n, int& d) const {
 }
 
 void Fraction::set(int n, int d) {
-    if (d == 0) return;       
-    if (d < 0) { n = -n; d = -d; }
+    if (d == 0) {
+        cout << "  Error: denominator cannot be 0. Value unchanged.\n";
+        return;
+    }
+    if (d < 0) { n = -n; d = -d; }  // keep sign in numerator
     numerator   = n;
     denominator = d;
 }
 
 Fraction Fraction::invert() const {
+    if (numerator == 0) {
+        cout << "  Error: cannot invert a fraction with numerator 0. Value unchanged.\n";
+        return *this;
+    }
     Fraction result;
     result.set(denominator, numerator);
     return result;
@@ -42,7 +56,6 @@ Fraction Fraction::reduce() const {
     result.denominator = denominator / g;
     return result;
 }
-
 
 Fraction Fraction::add(const Fraction& other) const {
     Fraction result;
@@ -68,6 +81,10 @@ Fraction Fraction::multiply(const Fraction& other) const {
 }
 
 Fraction Fraction::divide(const Fraction& other) const {
+    if (other.numerator == 0) {
+        cout << "  Error: cannot divide by zero fraction. Value unchanged.\n";
+        return *this;
+    }
     return multiply(other.invert());
 }
 
