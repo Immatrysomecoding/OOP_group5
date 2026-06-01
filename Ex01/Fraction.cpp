@@ -11,7 +11,10 @@ void Fraction::input() {
     int n, d;
     while (true) {
         cin >> n >> d;
-        if (d == 0) { ... continue; }
+        if (d == 0) {
+            cout << "  Error: denominator cannot be 0. Try again: ";
+            continue;
+        }
         break;
     }
     numerator   = n;
