@@ -7,21 +7,19 @@ static int gcd(int a, int b) {
     return a;
 }
 
-void Fraction::input(istream& inDev) {
+void Fraction::input() {
     int n, d;
     while (true) {
-        inDev >> n >> d;
-        if (d == 0) {
-            cout << "  Error: denominator cannot be 0. Try again: ";
-            continue;
-        }
+        cin >> n >> d;
+        if (d == 0) { ... continue; }
         break;
     }
-    set(n, d);   // set() normalises the sign
+    numerator   = n;
+    denominator = d;
 }
 
-void Fraction::output(ostream& outDev) const {
-    outDev << numerator << "/" << denominator;
+void Fraction::output() const {
+    cout << numerator << "/" << denominator;
 }
 
 void Fraction::get(int& n, int& d) const {
@@ -34,7 +32,7 @@ void Fraction::set(int n, int d) {
         cout << "  Error: denominator cannot be 0. Value unchanged.\n";
         return;
     }
-    if (d < 0) { n = -n; d = -d; }  // keep sign in numerator
+    if (d < 0) { n = -n; d = -d; }
     numerator   = n;
     denominator = d;
 }
@@ -89,11 +87,11 @@ Fraction Fraction::divide(const Fraction& other) const {
 }
 
 istream& operator>>(istream& inDev, Fraction& f) {
-    f.input(inDev);
+    f.input();
     return inDev;
 }
 
 ostream& operator<<(ostream& outDev, const Fraction& f) {
-    f.output(outDev);
+    f.output();
     return outDev;
 }

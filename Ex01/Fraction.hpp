@@ -9,12 +9,10 @@ class Fraction {
     int denominator;
 
 public:
-
-    void input(istream& inDev);
-    void output(ostream& outDev) const;
+    void input();
+    void output() const;
 
     void get(int& n, int& d) const;
-
     void set(int n, int d);
 
     Fraction invert() const;
